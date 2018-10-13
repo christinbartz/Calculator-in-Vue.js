@@ -1,0 +1,8 @@
+.calc {
+  display: flex;
+  width: 464px;
+  height: 640px;
+  &__row {
+    flex-direction: row;
+  }
+}
