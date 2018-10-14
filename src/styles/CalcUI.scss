@@ -1,8 +1,41 @@
+///
+// Variables
+///
+
+$calc-border: #000000;
+$calc-btn-operator: #0bd723;
+$calc-btn-num: #c7f4f6;
+$calc-display-textcolor: #ffffff;
+$calc-display-bg: #000000;
+
+
 .calc {
   display: flex;
   width: 464px;
   height: 640px;
+  flex-direction: column;
+  &__display {
+    height: 20%;
+    color: $calc-display-textcolor;
+    background: $calc-display-bg;
+  }
+  &__btn-container {
+    height: 80%;
+  }
   &__row {
+    display: flex;
     flex-direction: row;
+    height: 20%;
+  }
+  &__btn {
+    border: 1px solid $calc-border;
+    width: 25%;
+    background: $calc-btn-num;
+    &--double {
+      width: 50%;
+    }
+    &--operator {
+      background: $calc-btn-operator;
+    }
   }
 }
