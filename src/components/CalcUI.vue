@@ -1,7 +1,7 @@
 <template>
   <div class="calc">
     <div class="calc__display">
-     <div> 1235456 </div>
+     <div> 123 </div>
     </div>
     <div class="calc__btn-container">
       <div class="calc__row">
@@ -29,9 +29,9 @@
         <div @click="clickHandler('+')" class="calc__btn calc__btn--operator">+</div>
       </div>
       <div class="calc__row">
-        <div @click="clickHandler('0')" class="calc__btn calc__btn--num calc__btn--double">0</div>
+        <div id="btn-zero" @click="clickHandler('0')" class="calc__btn calc__btn--num calc__btn--double">0</div>
         <div @click="clickHandler('.')" class="calc__btn calc__btn--num">.</div>
-        <div id="" class="calc__btn calc__btn--operator">=</div>
+        <div id="btn-equal" class="calc__btn calc__btn--operator">=</div>
       </div>
     </div>
   </div>
