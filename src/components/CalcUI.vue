@@ -1,7 +1,7 @@
 <template>
   <div class="calc">
     <div class="calc__display">
-     <div> {{evalArray}} </div>
+     <div> {{displayEvalArray}} </div>
     </div>
     <div class="calc__btn-container">
       <div class="calc__row">
@@ -42,12 +42,17 @@ export default {
   name: 'CalcUI',
   data: () => {
     return {
-      evalArray: 'hello world' // ['1', '2', '3']
+      evalArray: ['1', '2', '3']
     }
   },
   methods: {
     clickHandler: (msg) => {
       console.log(msg)
+    }
+  },
+  computed: {
+    displayEvalArray: function () {
+      return this.evalArray.join(' ');
     }
   }
 }
