@@ -5,13 +5,13 @@
     </div>
     <div class="calc__btn-container">
       <div class="calc__row">
-        <div class="calc__btn calc__btn--double">C</div>
+        <div @click="clearDisplay()" class="calc__btn calc__btn--double">C</div>
         <div class="calc__btn calc__btn--">+/-</div>
-        <div class="calc__btn calc__btn--operator">/</div>
+        <div @click="clickHandler('/')" class="calc__btn calc__btn--operator">/</div>
       </div>
       <div class="calc__row">
         <div @click="clickHandler('7')" class="calc__btn calc__btn--num">7</div>
-        <div @click="clikHandler('8')" class="calc__btn calc__btn--num">8</div>
+        <div @click="clickHandler('8')" class="calc__btn calc__btn--num">8</div>
         <div @click="clickHandler('9')" class="calc__btn calc__btn--num">9</div>
         <div @click="clickHandler('*')" class="calc__btn calc__btn--operator">x</div>
       </div>
@@ -42,17 +42,20 @@ export default {
   name: 'CalcUI',
   data: () => {
     return {
-      evalArray: ['1', '2', '3']
+      evalArray: []
     }
   },
   methods: {
-    clickHandler: (msg) => {
-      console.log(msg)
-    }
+    clickHandler: function(num) {
+      this.evalArray.push(num)
+    },
+    clearDisplay: function() {
+      this.evalArray = []
+    } 
   },
   computed: {
     displayEvalArray: function () {
-      return this.evalArray.join(' ');
+      return this.evalArray.join('');
     }
   }
 }
