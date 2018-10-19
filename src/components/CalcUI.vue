@@ -1,11 +1,14 @@
 <template>
   <div class="calc">
     <div class="calc__display">
-     <div> {{displayEvalArray}} </div>
+      <div> 
+        {{displayEvalArray}}
+     </div>
     </div>
     <div class="calc__btn-container">
       <div class="calc__row">
-        <div @click="clearDisplay()" class="calc__btn calc__btn--double">C</div>
+        <div @click="clearDisplay()" class="calc__btn">C</div>
+        <div @click="backspaceHandler()" class="calc__btn"><--</div>
         <div class="calc__btn calc__btn--">+/-</div>
         <div @click="clickHandler('/')" class="calc__btn calc__btn--operator">/</div>
       </div>
@@ -30,7 +33,7 @@
       <div class="calc__row">
         <div id="btn-zero" @click="clickHandler('0')" class="calc__btn calc__btn--num calc__btn--double">0</div>
         <div @click="clickHandler('.')" class="calc__btn calc__btn--num">.</div>
-        <div id="btn-equal" class="calc__btn calc__btn--operator">=</div>
+        <div @click="currentResult()" id="btn-equal" class="calc__btn calc__btn--operator">=</div>
       </div>
     </div>
   </div>
@@ -46,12 +49,18 @@ export default {
     }
   },
   methods: {
-    clickHandler: function(num) {
-      this.evalArray.push(num)
+    clickHandler: function(val) {
+      this.evalArray.push(val)
     },
     clearDisplay: function() {
       this.evalArray = []
-    } 
+    },
+    backspaceHandler: function() {
+      this.evalArray.pop()
+    },
+    currentResult: function() {
+      console.log(eval(this.displayEvalArray))
+    }
   },
   computed: {
     displayEvalArray: function () {
