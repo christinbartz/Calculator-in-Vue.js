@@ -44,7 +44,7 @@ export default {
   name: 'CalcUI',
   data: () => {
     return {
-      evalArray: []
+      evalArray: ['0']
     }
   },
   methods: {
@@ -52,20 +52,31 @@ export default {
       if(val === '-') {
         if(this.evalArray[this.evalArray.length -1] === '-') {
           return
+        } if(this.evalArray[this.evalArray.length - 1] === '0'){
+          this.evalArray.pop()
+          this.evalArray.push(val)
         } else {
           this.evalArray.push(val)
         }
       } else {
-        if(this.evalArray[this.evalArray.length - 1] !== '*') {
-
+        if(this.evalArray[this.evalArray.length - 1] === '*') {
+          this.evalArray.pop()
+          this.evalArray.push(val)
+        } else {
+          this.evalArray.push(val)
         }
       }
     },
     numHandler: function(val) {
-      this.evalArray.push(val)
+      if(this.evalArray.length < 2 && this.evalArray[this.evalArray.length - 1] === '0'){
+        this.evalArray.pop()
+        this.evalArray.push(val)
+      } else(
+        this.evalArray.push(val)
+      )
     },
     clearDisplay: function() {
-      this.evalArray = [0]
+      this.evalArray = ['0']
     },
     backspaceHandler: function() {
       this.evalArray.pop()
