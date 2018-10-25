@@ -49,17 +49,18 @@ export default {
   },
   methods: {
     opHandler: function(val) {
+      let evalLastVal = this.evalArray[this.evalArray.length -1];
       if(val === '-') {
-        if(this.evalArray[this.evalArray.length -1] === '-') {
+        if(evalLastVal === '-') {
           return
-        } if(this.evalArray[this.evalArray.length - 1] === '0'){
+        } if(evalLastVal === '0'){
           this.evalArray.pop()
           this.evalArray.push(val)
         } else {
           this.evalArray.push(val)
         }
       } else {
-        if(this.evalArray[this.evalArray.length - 1] === '*') {
+        if(evalLastVal === '*' || evalLastVal === '/' || evalLastVal === '.' || evalLastVal === '+') {
           this.evalArray.pop()
           this.evalArray.push(val)
         } else {
@@ -68,7 +69,8 @@ export default {
       }
     },
     numHandler: function(val) {
-      if(this.evalArray.length < 2 && this.evalArray[this.evalArray.length - 1] === '0'){
+      let evalLastVal = this.evalArray[this.evalArray.length -1];
+      if(this.evalArray.length < 2 && evalLastVal === '0'){
         this.evalArray.pop()
         this.evalArray.push(val)
       } else(
