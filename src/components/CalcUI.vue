@@ -3,11 +3,14 @@
     <div class="calc__display">
       <div> 
         {{displayEvalArray}}
+        <br>
+        {{displayCurrentNum}}
      </div>
     </div>
     <div class="calc__btn-container">
       <div class="calc__row">
-        <div @click="clearDisplay()" class="calc__btn calc__btn--double">C</div>
+        <div @click="clearNum()" class="calc__btn">C</div>
+        <div @click="clearAll()" class="calc__btn">CE</div>
         <div @click="backspaceHandler()" class="calc__btn"><--</div>
         <div @click="opHandler('/')" class="calc__btn calc__btn--operator">/</div>
       </div>
@@ -44,7 +47,8 @@ export default {
   name: 'CalcUI',
   data: () => {
     return {
-      evalArray: ['0']
+      evalArray: ['0'],
+      currentNum: ['0']
     }
   },
   methods: {
@@ -79,7 +83,7 @@ export default {
         }
       }
     },
-    numHandler: function(val) {
+    /*numHandler: function(val) {
       let evalLastVal = this.evalArray[this.evalArray.length -1];
       if(this.evalArray.length === 1 && evalLastVal === '0'){
         this.evalArray.pop()
@@ -87,12 +91,29 @@ export default {
       } else(
         this.evalArray.push(val)
       )
+    },*/
+      numHandler: function(val) {
+      let numLastVal = this.currentNum[this.currentNum.length -1];
+      if(this.currentNum.length === 1 && numLastVal === '0'){
+        this.currentNum.pop()
+        this.currentNum.push(val)
+      } else(
+        this.currentNum.push(val)
+      )
     },
-    clearDisplay: function() {
+    clearNum: function() {
+      this.currentNum = ['0']
+    },
+    clearAll: function() {
+      this.currentNum = ['0']
       this.evalArray = ['0']
     },
     backspaceHandler: function() {
-      this.evalArray.pop()
+      if(this.currentNum.length < 2) {
+        this.currentNum = ['0']
+      } else {
+        this.currentNum.pop()
+      }
     },
     currentResult: function() {
       this.evalArray = [eval(this.displayEvalArray)]
@@ -101,6 +122,9 @@ export default {
   computed: {
     displayEvalArray: function () {
       return this.evalArray.join('');
+    },
+    displayCurrentNum: function () {
+      return this.currentNum.join('')
     }
   }
 }
