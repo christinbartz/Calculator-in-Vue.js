@@ -53,8 +53,17 @@ export default {
       if(val === '-') {
         if(evalLastVal === '-') {
           return
-        } if(evalLastVal === '0'){
+        } if(this.evalArray.length === 1 && evalLastVal === '0'){
           this.evalArray.pop()
+          this.evalArray.push(val)
+        } else {
+          this.evalArray.push(val)
+        }
+      } else if (val === ".") {
+        if(evalLastVal === ".") {
+          return
+        } else if (evalLastVal === '*' || evalLastVal === '/' || evalLastVal === '+' || evalLastVal === '-') {
+          this.evalArray.push("0")
           this.evalArray.push(val)
         } else {
           this.evalArray.push(val)
@@ -63,6 +72,8 @@ export default {
         if(evalLastVal === '*' || evalLastVal === '/' || evalLastVal === '.' || evalLastVal === '+') {
           this.evalArray.pop()
           this.evalArray.push(val)
+        } else if (this.evalArray.length === 1 && evalLastVal === '0') {
+          return
         } else {
           this.evalArray.push(val)
         }
@@ -70,7 +81,7 @@ export default {
     },
     numHandler: function(val) {
       let evalLastVal = this.evalArray[this.evalArray.length -1];
-      if(this.evalArray.length < 2 && evalLastVal === '0'){
+      if(this.evalArray.length === 1 && evalLastVal === '0'){
         this.evalArray.pop()
         this.evalArray.push(val)
       } else(
