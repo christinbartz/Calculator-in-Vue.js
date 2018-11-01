@@ -9,8 +9,8 @@
     </div>
     <div class="calc__btn-container">
       <div class="calc__row">
-        <div @click="clearNum()" class="calc__btn">C</div>
-        <div @click="clearAll()" class="calc__btn">CE</div>
+        <div @click="clearAll()" class="calc__btn">C</div>
+        <div @click="clearNum()" class="calc__btn">CE</div>
         <div @click="backspaceHandler()" class="calc__btn"><--</div>
         <div @click="opHandler('/')" class="calc__btn calc__btn--operator">/</div>
       </div>
@@ -54,13 +54,16 @@ export default {
   methods: {
     opHandler: function(val) {
       let evalLastVal = this.evalArray[this.evalArray.length -1];
+      let numLastVal = this.currentNum[this.currentNum.length -1];
       if(val === '-') {
-        if(evalLastVal === '-') {
+         if(numLastVal === '-') {
           return
-        } if(this.evalArray.length === 1 && evalLastVal === '0'){
-          this.evalArray.pop()
-          this.evalArray.push(val)
+        }
+        if (this.currentNum.length === 1 && numLastVal === '0'){
+          this.currentNum.pop()
+          this.currentNum.push(val)
         } else {
+          this.pushCurrentNum()
           this.evalArray.push(val)
         }
       } else if (val === ".") {
@@ -83,6 +86,14 @@ export default {
         }
       }
     },
+    pushCurrentNum: function() {
+      let evalLastVal = this.evalArray[this.evalArray.length - 1];
+      if(this.evalArray.length === 1 && evalLastVal  === '0') {
+        this.evalArray.pop()
+      }
+      this.evalArray.push(this.displayCurrentNum)
+      this.currentNum = ['0']
+    }, 
     /*numHandler: function(val) {
       let evalLastVal = this.evalArray[this.evalArray.length -1];
       if(this.evalArray.length === 1 && evalLastVal === '0'){
