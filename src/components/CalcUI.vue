@@ -33,7 +33,8 @@
         <div @click="opHandler('+')" class="calc__btn calc__btn--operator">+</div>
       </div>
       <div class="calc__row">
-        <div id="btn-zero" @click="numHandler('0')" class="calc__btn calc__btn--num calc__btn--double">0</div>
+        <div id="btn-zero" @click="numHandler('0')" class="calc__btn calc__btn--num">0</div>
+        <div @click="changeSign()" class="calc__btn calc__btn--num">+/-</div>
         <div @click="opHandler('.')" class="calc__btn calc__btn--num">.</div>
         <div @click="result()" id="btn-equal" class="calc__btn calc__btn--operator">=</div>
       </div>
@@ -90,6 +91,9 @@ export default {
       } else(
         this.currentNum.push(val)
       )
+    },
+    changeSign: function () {
+      this.currentNum = [this.joinedCurrentNum * -1]
     },
     clearNum: function() {
       this.currentNum = ['0']
