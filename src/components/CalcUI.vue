@@ -57,14 +57,6 @@ export default {
       let evalLastVal = this.evalArray[this.evalArray.length -1];
       let numLastVal = this.currentNum[this.currentNum.length -1];
       if (val === ".") {
-        /* if(evalLastVal === ".") {
-          return
-        } else if (evalLastVal === '*' || evalLastVal === '/' || evalLastVal === '+' || evalLastVal === '-') {
-          this.evalArray.push("0")
-          this.evalArray.push(val)
-        } else {
-          this.evalArray.push(val)
-        } */
         if(this.currentNum.includes(".")) {
           return
         }
@@ -118,6 +110,8 @@ export default {
       } else {
           this.pushCurrentNum()
           this.currentNum.push(eval(this.displayEvalArray))
+          this.currentNum = this.currentNum[0].toString().split('') 
+          // console.log(this.currentNum)
           this.evalArray = []
       }
     }
