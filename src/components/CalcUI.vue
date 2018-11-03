@@ -57,14 +57,20 @@ export default {
       let evalLastVal = this.evalArray[this.evalArray.length -1];
       let numLastVal = this.currentNum[this.currentNum.length -1];
       if (val === ".") {
-        if(evalLastVal === ".") {
+        /* if(evalLastVal === ".") {
           return
         } else if (evalLastVal === '*' || evalLastVal === '/' || evalLastVal === '+' || evalLastVal === '-') {
           this.evalArray.push("0")
           this.evalArray.push(val)
         } else {
           this.evalArray.push(val)
+        } */
+        if(this.currentNum.includes(".")) {
+          return
         }
+        else (
+          this.currentNum.push(val)
+        )
       } else {
         if (this.currentNum.length === 0) {
           if(evalLastVal === '*' || evalLastVal === '/' || evalLastVal === '.' || evalLastVal === '+' || evalLastVal === '-') {
