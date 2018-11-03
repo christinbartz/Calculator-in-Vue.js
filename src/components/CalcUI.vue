@@ -59,8 +59,10 @@ export default {
       if (val === ".") {
         if(this.currentNum.includes(".")) {
           return
-        }
-        else (
+        } else if (this.currentNum.length === 0) {
+          this.currentNum.push('0')
+          this.currentNum.push(val)
+        } else (
           this.currentNum.push(val)
         )
       } else {
@@ -78,6 +80,10 @@ export default {
       }
     },
     pushCurrentNum: function() {
+      let numLastVal = this.currentNum[this.currentNum.length -1];
+      if(numLastVal === ".") {
+        this.currentNum.pop()
+      }
       this.evalArray.push(this.joinedCurrentNum)
       this.currentNum = []
     }, 
