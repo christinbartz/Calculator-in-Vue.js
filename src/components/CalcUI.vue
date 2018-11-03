@@ -4,7 +4,7 @@
       <div> 
         {{displayEvalArray}}
         <br>
-        {{displayCurrentNum}}
+        {{joinedCurrentNum}}
      </div>
     </div>
     <div class="calc__btn-container">
@@ -35,7 +35,7 @@
       <div class="calc__row">
         <div id="btn-zero" @click="numHandler('0')" class="calc__btn calc__btn--num calc__btn--double">0</div>
         <div @click="opHandler('.')" class="calc__btn calc__btn--num">.</div>
-        <div @click="currentResult()" id="btn-equal" class="calc__btn calc__btn--operator">=</div>
+        <div @click="result()" id="btn-equal" class="calc__btn calc__btn--operator">=</div>
       </div>
     </div>
   </div>
@@ -47,7 +47,7 @@ export default {
   name: 'CalcUI',
   data: () => {
     return {
-      evalArray: ['0'],
+      evalArray: [],
       currentNum: ['0']
     }
   },
@@ -55,18 +55,7 @@ export default {
     opHandler: function(val) {
       let evalLastVal = this.evalArray[this.evalArray.length -1];
       let numLastVal = this.currentNum[this.currentNum.length -1];
-      if(val === '-') {
-         if(numLastVal === '-') {
-          return
-        }
-        if (this.currentNum.length === 1 && numLastVal === '0'){
-          this.currentNum.pop()
-          this.currentNum.push(val)
-        } else {
-          this.pushCurrentNum()
-          this.evalArray.push(val)
-        }
-      } else if (val === ".") {
+      if (val === ".") {
         if(evalLastVal === ".") {
           return
         } else if (evalLastVal === '*' || evalLastVal === '/' || evalLastVal === '+' || evalLastVal === '-') {
@@ -76,34 +65,24 @@ export default {
           this.evalArray.push(val)
         }
       } else {
-        if(evalLastVal === '*' || evalLastVal === '/' || evalLastVal === '.' || evalLastVal === '+') {
-          this.evalArray.pop()
-          this.evalArray.push(val)
-        } else if (this.evalArray.length === 1 && evalLastVal === '0') {
-          return
+        if (this.currentNum.length === 0) {
+          if(evalLastVal === '*' || evalLastVal === '/' || evalLastVal === '.' || evalLastVal === '+' || evalLastVal === '-') {
+            this.evalArray.pop()
+            this.evalArray.push(val)
+          } else {
+              return
+          }
         } else {
-          this.evalArray.push(val)
+            this.pushCurrentNum()
+            this.evalArray.push(val)
         }
       }
     },
     pushCurrentNum: function() {
-      let evalLastVal = this.evalArray[this.evalArray.length - 1];
-      if(this.evalArray.length === 1 && evalLastVal  === '0') {
-        this.evalArray.pop()
-      }
-      this.evalArray.push(this.displayCurrentNum)
-      this.currentNum = ['0']
+      this.evalArray.push(this.joinedCurrentNum)
+      this.currentNum = []
     }, 
-    /*numHandler: function(val) {
-      let evalLastVal = this.evalArray[this.evalArray.length -1];
-      if(this.evalArray.length === 1 && evalLastVal === '0'){
-        this.evalArray.pop()
-        this.evalArray.push(val)
-      } else(
-        this.evalArray.push(val)
-      )
-    },*/
-      numHandler: function(val) {
+    numHandler: function(val) {
       let numLastVal = this.currentNum[this.currentNum.length -1];
       if(this.currentNum.length === 1 && numLastVal === '0'){
         this.currentNum.pop()
@@ -117,24 +96,22 @@ export default {
     },
     clearAll: function() {
       this.currentNum = ['0']
-      this.evalArray = ['0']
+      this.evalArray = []
     },
     backspaceHandler: function() {
-      if(this.currentNum.length < 2) {
-        this.currentNum = ['0']
-      } else {
         this.currentNum.pop()
-      }
     },
-    currentResult: function() {
-      this.evalArray = [eval(this.displayEvalArray)]
+    result: function() {
+      this.pushCurrentNum()
+      this.currentNum.push(eval(this.displayEvalArray))
+      this.evalArray = []
     }
   },
   computed: {
     displayEvalArray: function () {
       return this.evalArray.join('');
     },
-    displayCurrentNum: function () {
+    joinedCurrentNum: function () {
       return this.currentNum.join('')
     }
   }
