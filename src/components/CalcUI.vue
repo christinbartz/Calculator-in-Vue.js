@@ -102,9 +102,14 @@ export default {
         this.currentNum.pop()
     },
     result: function() {
-      this.pushCurrentNum()
-      this.currentNum.push(eval(this.displayEvalArray))
-      this.evalArray = []
+      let evalLastVal = this.evalArray[this.evalArray.length -1];
+      if((this.currentNum.length === 0) && (evalLastVal === '*' || evalLastVal === '/' || evalLastVal === '.' || evalLastVal === '+' || evalLastVal === '-')) {
+        return
+      } else {
+          this.pushCurrentNum()
+          this.currentNum.push(eval(this.displayEvalArray))
+          this.evalArray = []
+      }
     }
   },
   computed: {
