@@ -2,9 +2,8 @@
   <div class="calc">
     <div class="calc__display">
       <div> 
-        {{displayEvalArray}}
-        <br>
-        {{joinedCurrentNum}}
+        <div class="calc__display-operation">{{displayEvalArray}}</div>
+        <div class="calc__display-number">{{joinedCurrentNum}}</div>
      </div>
     </div>
     <div class="calc__btn-container">
@@ -107,7 +106,11 @@ export default {
       this.evalArray = []
     },
     backspaceHandler: function() {
-        this.currentNum.pop()
+      let numLastVal = this.currentNum[this.currentNum.length -1];
+      this.currentNum.pop()
+      if (this.currentNum.length === 0) {
+        this.currentNum = ['0']
+      }
     },
     result: function() {
       let evalLastVal = this.evalArray[this.evalArray.length -1];
