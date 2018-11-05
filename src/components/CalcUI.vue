@@ -118,9 +118,8 @@ export default {
         return
       } else {
           this.pushCurrentNum()
-          this.currentNum.push(eval(this.displayEvalArray))
+          this.currentNum.push(eval(this.displayEvalArray).toFixed(2))
           this.currentNum = this.currentNum[0].toString().split('') 
-          // console.log(this.currentNum)
           this.evalArray = []
       }
     }
