@@ -11,6 +11,8 @@ $calc-display-textcolor: #ffffff;
 $calc-display-bg: #000000;
 
 
+
+
 .calc {
   display: flex;
   width: 464px;
@@ -34,21 +36,22 @@ $calc-display-bg: #000000;
     font-size: 40px;
     padding-left: 20px;
     padding-right: 20px;
-    overflow: hidden; 
+    overflow-x: auto; 
   }
   &__display-operation {
+    width: 420px;
     font-size: 25px;
-    display: flex;
-    align-self: flex-start;
     height:25px;
+    display: block;
     opacity: .6;
     text-align: right;
   }
   &__display-number {
+    width: 420px;
     font-size: 50px;
-    display: flex;
-    align-self: flex-end;
     height: 50px;
+    display: block;
+    text-align: right;
   }
   &__btn-container {
     height: 80%;
