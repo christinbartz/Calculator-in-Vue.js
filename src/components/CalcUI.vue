@@ -10,14 +10,14 @@
       <div class="calc__row">
         <div @click="clearAll()" class="calc__btn">C</div>
         <div @click="clearNum()" class="calc__btn">CE</div>
-        <div @click="backspaceHandler()" class="calc__btn"><--</div>
-        <div @click="opHandler('/')" class="calc__btn calc__btn--operator">/</div>
+        <div @click="backspaceHandler()" class="calc__btn">←</div>
+        <div @click="opHandler('/')" class="calc__btn calc__btn--operator">÷</div>
       </div>
       <div class="calc__row">
         <div @click="numHandler('7')" class="calc__btn calc__btn--num">7</div>
         <div @click="numHandler('8')" class="calc__btn calc__btn--num">8</div>
         <div @click="numHandler('9')" class="calc__btn calc__btn--num">9</div>
-        <div @click="opHandler('*')" class="calc__btn calc__btn--operator">x</div>
+        <div @click="opHandler('*')" class="calc__btn calc__btn--operator">×</div>
       </div>
       <div class="calc__row">
         <div @click="numHandler('4')" class="calc__btn calc__btn--num">4</div>
