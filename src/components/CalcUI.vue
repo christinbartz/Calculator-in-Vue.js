@@ -48,7 +48,9 @@ export default {
   data: () => {
     return {
       evalArray: [],
-      currentNum: ['0']
+      currentNum: ['0'],
+      pendingResult: null,
+      roundedResult: null
     }
   },
   methods: {
@@ -95,7 +97,7 @@ export default {
         this.currentNum.push(val)
       )
     },
-    changeSign: function () {
+    changeSign: function() {
       this.currentNum = [this.joinedCurrentNum * -1]
     },
     clearNum: function() {
@@ -112,13 +114,22 @@ export default {
         this.currentNum = ['0']
       }
     },
+    roundingNum: function(val) {
+      if(val % 1 !== 0) {
+        return val.toFixed(2)
+      } else {
+        return val
+      }
+    },
     result: function() {
       let evalLastVal = this.evalArray[this.evalArray.length -1];
       if((this.currentNum.length === 0) && (evalLastVal === '*' || evalLastVal === '/' || evalLastVal === '.' || evalLastVal === '+' || evalLastVal === '-')) {
         return
       } else {
           this.pushCurrentNum()
-          this.currentNum.push(eval(this.displayEvalArray).toFixed(2))
+          this.pendingResult = eval(this.displayEvalArray)
+          this.roundedResult = this.roundingNum(this.pendingResult)
+          this.currentNum.push(this.roundedResult)
           this.currentNum = this.currentNum[0].toString().split('') 
           this.evalArray = []
       }
